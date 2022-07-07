@@ -3,17 +3,17 @@
 
 #include <qmessagebox.h>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget* parent) :
+	QMainWindow(parent),
+	ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 	CreateButtons();
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+	delete ui;
 }
 
 void MainWindow::HelloWorld() {
@@ -24,9 +24,13 @@ void MainWindow::HelloWorld() {
 void MainWindow::CreateButtons()
 {
 	hello_world_action_ = new QAction(tr("&Hello world"), this);
+	hello_world_action_2 = new QAction(tr("&Hello world 2"), this);
 	connect(hello_world_action_, &QAction::triggered, this, &MainWindow::HelloWorld);
-	main_menu_ = menuBar()->addMenu(tr("&Main"));
+	connect(hello_world_action_2, &QAction::triggered, this, &MainWindow::HelloWorld);
+	main_menu_ = menuBar()->addMenu(tr("&menu"));
 	main_menu_->addAction(hello_world_action_);
-	main_toolbar_ = addToolBar(tr("&Main"));
+	main_menu_->addAction(hello_world_action_2);
+	main_toolbar_ = addToolBar(tr("&toolbar"));
 	main_toolbar_->addAction(hello_world_action_);
+	main_toolbar_->addAction(hello_world_action_2);
 }

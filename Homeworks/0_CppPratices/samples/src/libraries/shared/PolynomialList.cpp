@@ -66,7 +66,7 @@ PolynomialList PolynomialList::operator+(const PolynomialList& right) const {
 }
 
 PolynomialList PolynomialList::operator-(const PolynomialList& right) const {
-    PolynomialList poly(*(this);
+    PolynomialList poly(*this);
     for (const auto& term : right.m_Polynomial)
         poly.AddOneTerm(Term(term.deg, -term.cof));
 
@@ -94,6 +94,7 @@ PolynomialList& PolynomialList::operator=(const PolynomialList& right) {
 }
 
 void PolynomialList::Print() const {
+    PolynomialList rst;
     rst.compress();
     auto itr = m_Polynomial.begin();
     if (itr == m_Polynomial.end()) {

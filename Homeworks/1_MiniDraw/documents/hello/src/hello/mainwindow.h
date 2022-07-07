@@ -4,7 +4,7 @@
 #include <QMainWindow>
 
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -12,14 +12,15 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
 
     QAction* hello_world_action_;
+    QAction* hello_world_action_2;
     QMenu* main_menu_;
     QToolBar* main_toolbar_;
     void CreateButtons();

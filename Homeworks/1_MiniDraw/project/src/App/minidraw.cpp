@@ -19,10 +19,13 @@ void MiniDraw::Creat_Action() {
 	connect(Action_About, &QAction::triggered, this, &MiniDraw::AboutBox);
 
 	Action_Line = new QAction(tr("&Line"), this);
-	connect(Action_Line, SIGNAL(triggered()), view_widget_, SLOT(setLine()));
+	connect(Action_Line, &QAction::triggered, view_widget_, &ViewWidget::setLine);
 
 	Action_Rect = new QAction(tr("&Rect"), this);
 	connect(Action_Rect, &QAction::triggered, view_widget_, &ViewWidget::setRect);
+
+	Action_Ellipse = new QAction(tr("&Ellipse"), this);
+	connect(Action_Ellipse, &QAction::triggered, view_widget_, &ViewWidget::setEllipse);
 }
 
 void MiniDraw::Creat_ToolBar() {
@@ -30,6 +33,7 @@ void MiniDraw::Creat_ToolBar() {
 	pToolBar->addAction(Action_About);
 	pToolBar->addAction(Action_Line);
 	pToolBar->addAction(Action_Rect);
+	pToolBar->addAction(Action_Ellipse);
 }
 
 void MiniDraw::Creat_Menu() {
@@ -37,10 +41,11 @@ void MiniDraw::Creat_Menu() {
 	pMenu->addAction(Action_About);
 	pMenu->addAction(Action_Line);
 	pMenu->addAction(Action_Rect);
+	pMenu->addAction(Action_Ellipse);
 }
 
 void MiniDraw::AboutBox() {
-	QMessageBox::about(this, tr("About"), tr("MiniDraw"));
+	QMessageBox::about(this, tr("About"), tr("This is a simple draw tool named MiniDraw."));
 }
 
 MiniDraw::~MiniDraw() {}
