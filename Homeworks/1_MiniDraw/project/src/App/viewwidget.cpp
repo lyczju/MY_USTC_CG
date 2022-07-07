@@ -41,7 +41,7 @@ void ViewWidget::mousePressEvent(QMouseEvent* event)
 			shape_ = new Rect();
 			break;
 		case Shape::kEllipse:
-			shape_ = new Ellipse();
+			shape_ = new MyEllipse();
 			break;
 		case Shape::kDefault:
 			break;

@@ -2,10 +2,10 @@
 
 #include "Shape.h"
 
-class Ellipse : public Shape {
+class MyEllipse : public Shape {
 public:
-	Ellipse();
-	~Ellipse();
+	MyEllipse();
+	~MyEllipse();
 
 	void Draw(QPainter& painter);
 };
