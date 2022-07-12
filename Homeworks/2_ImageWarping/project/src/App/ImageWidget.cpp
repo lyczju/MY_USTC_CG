@@ -11,11 +11,18 @@ ImageWidget::ImageWidget(void)
 {
 	ptr_image_ = new QImage();
 	ptr_image_backup_ = new QImage();
+	is_choose = false;
+	is_draw = false;
 }
 
 
 ImageWidget::~ImageWidget(void)
 {
+	delete ptr_image_;
+	delete ptr_image_backup_;
+	start_list.clear();
+	end_list.clear();
+	
 }
 
 void ImageWidget::paintEvent(QPaintEvent *paintevent)
@@ -31,6 +38,26 @@ void ImageWidget::paintEvent(QPaintEvent *paintevent)
 	// Draw image
 	QRect rect = QRect( (width()-ptr_image_->width())/2, (height()-ptr_image_->height())/2, ptr_image_->width(), ptr_image_->height());
 	painter.drawImage(rect, *ptr_image_); 
+
+	// Draw points and lines
+	for (int i = 0; i < start_list.size(); i++)
+	{
+		painter.setPen(QPen(Qt::blue, 10));
+		painter.drawPoint(start_list[i]);
+		painter.setPen(QPen(Qt::green, 10));
+		painter.drawPoint(end_list[i]);
+		painter.setPen(QPen(Qt::red, 3));
+		painter.drawLine(start_list[i], end_list[i]);
+	}
+	if (is_draw)
+	{
+		painter.setPen(QPen(Qt::red, 3));
+		painter.drawLine(start, end);
+		painter.setPen(QPen(Qt::blue, 10));
+		painter.drawPoint(start);
+		painter.setPen(QPen(Qt::green, 10));
+		painter.drawPoint(end);
+	}
 
 	painter.end();
 }
@@ -154,4 +181,50 @@ void ImageWidget::Restore()
 {
 	*(ptr_image_) = *(ptr_image_backup_);
 	update();
+}
+
+void ImageWidget::ChoosePoints()
+{
+	is_choose = !is_choose;
+}
+
+void ImageWidget::mousePressEvent(QMouseEvent* mouseevent)
+{
+	if (is_choose && Qt::LeftButton == mouseevent->button())
+	{
+		is_draw = true;
+		start = mouseevent->pos();
+		end = mouseevent->pos();
+		update();
+	}
+}
+
+void ImageWidget::mouseMoveEvent(QMouseEvent* mouseevent)
+{
+	if (is_draw)
+	{
+		end = mouseevent->pos();
+		update();
+	}
+}
+
+void ImageWidget::mouseReleaseEvent(QMouseEvent* mouseevent)
+{
+	if (is_draw)
+	{
+		start_list.push_back(start);
+		end_list.push_back(end);
+		is_draw = false;
+		update();
+	}
+}
+
+void ImageWidget::IDW()
+{
+
+}
+
+void ImageWidget::RBF()
+{
+
 }

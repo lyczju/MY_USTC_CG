@@ -9,10 +9,10 @@ int main() {
 	MatrixXf A(4, 4);
 
 	float data[4][4] = {
-		{1, 0, 0, 0},
-		{0, 1, 0, 0},
-		{0, 0, 1, 0},
-		{0, 0, 0, 1}
+		{2, 0, 6, 1},
+		{0, 1, 4, 0},
+		{0, 5, 1, 10},
+		{0, 7, 0, 8}
 	};
 
 	for (size_t row = 0; row < 4; row++) {
@@ -22,8 +22,8 @@ int main() {
 
 	MatrixXf b(4, 2);
 	for (size_t row = 0; row < 4; row++) {
-		b(row, 0) = 1;
-		b(row, 1) = 2;
+		b(row, 0) = 3;
+		b(row, 1) = 5;
 	}
 
 	MatrixXf x = A.colPivHouseholderQr().solve(b);

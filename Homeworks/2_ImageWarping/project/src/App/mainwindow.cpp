@@ -77,6 +77,18 @@ void MainWindow::CreateActions()
 	action_restore_ = new QAction(tr("Restore"), this);
 	action_restore_->setStatusTip(tr("Show origin image"));
 	connect(action_restore_, &QAction::triggered, imagewidget_, &ImageWidget::Restore);
+
+	action_choose_points_ = new QAction(tr("Choose"), this);
+	action_choose_points_->setStatusTip(tr("Choose points"));
+	connect(action_choose_points_, &QAction::triggered, imagewidget_, &ImageWidget::ChoosePoints);
+
+	action_IDW_ = new QAction(tr("IDW"), this);
+	action_IDW_->setStatusTip(tr("IDW warping"));
+	connect(action_IDW_, &QAction::triggered, imagewidget_, &ImageWidget::IDW);
+
+	action_RBF_ = new QAction(tr("RBF"), this);
+	action_RBF_->setStatusTip(tr("RBF warping"));
+	connect(action_RBF_, &QAction::triggered, imagewidget_, &ImageWidget::RBF);
 }
 
 void MainWindow::CreateMenus()
@@ -94,6 +106,9 @@ void MainWindow::CreateMenus()
 	menu_edit_->addAction(action_mirror_);
 	menu_edit_->addAction(action_gray_);
 	menu_edit_->addAction(action_restore_);
+	menu_edit_->addAction(action_choose_points_);
+	menu_edit_->addAction(action_IDW_);
+	menu_edit_->addAction(action_RBF_);
 }
 
 void MainWindow::CreateToolBars()
@@ -109,6 +124,9 @@ void MainWindow::CreateToolBars()
 	toolbar_file_->addAction(action_mirror_);
 	toolbar_file_->addAction(action_gray_);
 	toolbar_file_->addAction(action_restore_);
+	toolbar_file_->addAction(action_choose_points_);
+	toolbar_file_->addAction(action_IDW_);
+	toolbar_file_->addAction(action_RBF_);
 }
 
 void MainWindow::CreateStatusBar()

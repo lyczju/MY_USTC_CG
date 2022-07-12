@@ -30,8 +30,22 @@ public slots:
 	void TurnGray();											// Turn image to gray-scale map
 	void Restore();												// Restore image to origin
 
+	void ChoosePoints();
+	void mousePressEvent(QMouseEvent* mouseevent);
+	void mouseMoveEvent(QMouseEvent* mouseevent);
+	void mouseReleaseEvent(QMouseEvent* mouseevent);
+
+	void IDW();
+	void RBF();
+
 private:
 	QImage		*ptr_image_;				// image 
 	QImage		*ptr_image_backup_;
+	bool is_choose;
+	bool is_draw;
+	QPoint start;
+	QPoint end;
+	QVector<QPoint> start_list;
+	QVector<QPoint> end_list;
 };
 
