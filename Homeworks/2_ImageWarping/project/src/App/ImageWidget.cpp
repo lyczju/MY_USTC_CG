@@ -221,10 +221,22 @@ void ImageWidget::mouseReleaseEvent(QMouseEvent* mouseevent)
 
 void ImageWidget::IDW()
 {
-
+	delete warping;
+	warping = new IDWWarping((width() - ptr_image_->width()) / 2, (height() - ptr_image_->height()) / 2);
+	warping->initAnchor(start_list,end_list);
+	warping->imageWarping(*(ptr_image_));
+	start_list.clear();
+	end_list.clear();
+	update();
 }
 
 void ImageWidget::RBF()
 {
-
+	delete warping;
+	warping = new RBFWarping((width() - ptr_image_->width()) / 2, (height() - ptr_image_->height()) / 2);
+	warping->initAnchor(start_list, end_list);
+	warping->imageWarping(*(ptr_image_));
+	start_list.clear();
+	end_list.clear();
+	update();
 }

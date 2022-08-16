@@ -1,5 +1,8 @@
 #pragma once
 #include <QWidget>
+#include "Warping.h"
+#include "IDW.h"
+#include "RBF.h"
 
 QT_BEGIN_NAMESPACE
 class QImage;
@@ -47,5 +50,6 @@ private:
 	QPoint end;
 	QVector<QPoint> start_list;
 	QVector<QPoint> end_list;
+	Warping* warping;
 };
 
