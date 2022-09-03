@@ -42,7 +42,7 @@ MatrixXd ScanLine::Scan(int width, int height, vector<int> x_points, vector<int>
 			int min_x = min(x_points[i], x_points[prev]);
 			int max_x = max(x_points[i], x_points[prev]);
 			for (int j = min_x; j < max_x; j++) {
-				selected_region(y_points[i], j) = 1;
+				selected_region(j, y_points[i]) = 1;
 			}
 		}
 	}
