@@ -88,6 +88,45 @@ bool MinSurf::Run() {
 
 void MinSurf::Minimize() {
 	// TODO
-	cout << "WARNING::MinSurf::Minimize:" << endl
-		<< "\t" << "not implemented" << endl;
+	std::vector<Triplet<double>> triplet_list;
+	size_t vert_num = heMesh->NumVertices();
+	VectorXd bx = VectorXd::Zero(vert_num);
+	VectorXd by = VectorXd::Zero(vert_num);
+	VectorXd bz = VectorXd::Zero(vert_num);
+	for (auto vertex : heMesh->Vertices()) {
+		int i = static_cast<int>(heMesh->Index(vertex));
+		// boundary is fixed
+		if (vertex->IsBoundary()) {
+			bx(i) += (vertex->pos[0]);
+			by(i) += (vertex->pos[1]);
+			bz(i) += (vertex->pos[2]);
+			triplet_list.push_back(Triplet<double>(i, i, 1));
+		}
+		else {
+			for (auto adjacent : vertex->AdjVertices()) {
+				if (adjacent->IsBoundary()) {
+					bx(i) += (adjacent->pos[0]);
+					by(i) += (adjacent->pos[1]);
+					bz(i) += (adjacent->pos[2]);
+				}
+				else {
+					int i_adj = static_cast<int>(heMesh->Index(adjacent));
+					triplet_list.push_back(Triplet<double>(i, i_adj, -1));
+				}
+			}
+			triplet_list.push_back(Triplet<double>(i, i, double(vertex->Degree())));
+		}
+	}
+
+	SparseMatrix<double> A(vert_num, vert_num);
+	SimplicialLLT< SparseMatrix<double>> solver;
+	A.setFromTriplets(triplet_list.begin(), triplet_list.end());
+	solver.compute(A);
+	VectorXd px = solver.solve(bx);
+	VectorXd py = solver.solve(by);
+	VectorXd pz = solver.solve(bz);
+	for (auto vertex : heMesh->Vertices()) {
+		size_t i = heMesh->Index(vertex);
+		vertex->pos = { px(i), py(i), pz(i) };
+	}
 }
