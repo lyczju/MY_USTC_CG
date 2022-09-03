@@ -97,17 +97,17 @@ void MinSurf::Minimize() {
 		int i = static_cast<int>(heMesh->Index(vertex));
 		// boundary is fixed
 		if (vertex->IsBoundary()) {
-			bx(i) += (vertex->pos[0]);
-			by(i) += (vertex->pos[1]);
-			bz(i) += (vertex->pos[2]);
+			bx(i) += vertex->pos[0];
+			by(i) += vertex->pos[1];
+			bz(i) += vertex->pos[2];
 			triplet_list.push_back(Triplet<double>(i, i, 1));
 		}
 		else {
 			for (auto adjacent : vertex->AdjVertices()) {
 				if (adjacent->IsBoundary()) {
-					bx(i) += (adjacent->pos[0]);
-					by(i) += (adjacent->pos[1]);
-					bz(i) += (adjacent->pos[2]);
+					bx(i) += adjacent->pos[0];
+					by(i) += adjacent->pos[1];
+					bz(i) += adjacent->pos[2];
 				}
 				else {
 					int i_adj = static_cast<int>(heMesh->Index(adjacent));
