@@ -199,7 +199,7 @@ void advance(real dt) {
 // Seed particles with position and color
 void add_object(Vec center, int c) {
   // Randomly sample 1000 particles in the square
-  for (int i = 0; i < 1000; i++) {
+  for (int i = 0; i < 500; i++) {
     particles.push_back(Particle((Vec::rand()*2.0f-Vec(1))*0.08f + center, c));
   }
 }
