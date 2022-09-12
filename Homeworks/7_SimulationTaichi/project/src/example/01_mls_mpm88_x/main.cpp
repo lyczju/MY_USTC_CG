@@ -26,7 +26,7 @@ const real inv_dx = 1.0_f / dx;
 // Snow material properties
 const auto particle_mass = 1.0_f;
 const auto vol = 1.0_f;        // Particle Volume
-const auto hardening = 10.0_f; // Snow hardening factor
+const auto hardening = 5.0_f; // Snow hardening factor
 const auto E = 1e4_f;          // Young's Modulus
 const auto nu = 0.2_f;         // Poisson ratio
 const bool plastic = true;
@@ -126,7 +126,7 @@ void advance(real dt) {
         // Normalize by mass
         g /= g[2];
         // Gravity
-        g += dt * Vector3(0, -200, 0);
+        g += dt * Vector3(0, -1000, 0);
 
         // boundary thickness
         real boundary = 0.05;
@@ -200,7 +200,7 @@ void advance(real dt) {
 void add_object(Vec center, int c) {
   // Randomly sample 1000 particles in the square
   for (int i = 0; i < 500; i++) {
-    particles.push_back(Particle((Vec::rand()*2.0f-Vec(1))*0.08f + center, c));
+    particles.push_back(Particle((Vec::rand()*2.0f-Vec(1))*0.08f + center, c, Vec(10.0, 0.0)));
   }
 }
 
@@ -211,6 +211,7 @@ int main() {
   add_object(Vec(0.55,0.45), 0xED553B);
   add_object(Vec(0.45,0.65), 0xF2B134);
   add_object(Vec(0.55,0.85), 0x068587);
+  add_object(Vec(0.85,0.85), 0xFFFFFF);
 
   int frame = 0;
 

@@ -38,7 +38,16 @@ void advance(real dt) {
       auto &g = grid[i][j];
       if (g[2] > 0) {                                // No need for epsilon here
         g /= g[2];                                   //        Normalize by mass
-        g += dt * Vector3(0, -200, 0);               //                  Gravity
+        //g += dt * Vector3(0, -200, 0);               //                  Gravity
+        if (j < n / 2 - 1 || j > n / 2 + 1) {
+            auto r1 = Vec(-g[1], g[0]);
+            auto f1 = 100_f * r1;
+            g += dt * Vector3(f1.x, f1.y, 0);
+        }
+        else {
+            g += dt * Vector3(0, i < n / 2 ? -500 : 500, 0);
+        }
+
         real boundary=0.05,x=(real)i/n,y=real(j)/n; //boundary thick.,node coord
         if (x < boundary||x > 1-boundary||y > 1-boundary) g=Vector3(0); //Sticky
         if (y < boundary) g[1] = std::max(0.0_f, g[1]);             //"Separate"
@@ -80,7 +89,7 @@ void add_object_rectangle(Vec v1, Vec v2, int c, int num = 500, Vec velocity = V
 	}
 }
 void add_jet() {
-	add_object_rectangle(Vec(0.05, 0.5), Vec(0.06, 0.51), 0x87CEFA, 10, Vec(7.0, 0.0));
+	add_object_rectangle(Vec(0.5, 0.5), Vec(0.51, 0.51), 0x87CEFA, 10, Vec(7.0, 0.0));
 	//add_object_rectangle(Vec(0.5, 0.5), Vec(0.51, 0.51), 0x87CEFA, 10, Vec(0.0, -10.0));
 }
 ////////////////////////////////////////////////////////////////////////////////
